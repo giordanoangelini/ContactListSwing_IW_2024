@@ -13,9 +13,10 @@ class EditorPersona extends JFrame {
     private JTextField telefonoField;
     private JSpinner etaField;
 
-    public EditorPersona(Persona persona, ArrayList<Persona> rubrica, DefaultTableModel tableModel) {
+    public EditorPersona(Persona persona, ArrayList<Persona> rubrica, DefaultTableModel tableModel, String user) {
 	    setTitle("Editor Persona");
 	    setSize(300, 200);
+	    setLocationRelativeTo(null);
 	
 	    JLabel nomeLabel = new JLabel("Nome:");
 	    JLabel cognomeLabel = new JLabel("Cognome:");

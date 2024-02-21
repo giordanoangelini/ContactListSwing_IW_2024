@@ -16,7 +16,7 @@ public class Database {
 		Statement statement;
 		try {
 			statement = conn.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM Persona");
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM persona");
 	        while (resultSet.next()) {
 	        	Integer id = resultSet.getInt("id");
 	        	String nome = resultSet.getString("nome");
@@ -40,7 +40,7 @@ public class Database {
 		
 		Connection conn = DatabaseConnection.getInstance().getConnection();
 		
-		String query = "INSERT INTO Persona (nome, cognome, indirizzo, telefono, eta) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO persona (nome, cognome, indirizzo, telefono, eta) VALUES (?, ?, ?, ?, ?)";
 		try {
 	        PreparedStatement preparedStatement = conn.prepareStatement(query);
 	        if (nome == null) preparedStatement.setNull(1, Types.VARCHAR); else preparedStatement.setString(1, nome);
@@ -58,7 +58,7 @@ public class Database {
 			
 		Connection conn = DatabaseConnection.getInstance().getConnection();
 		
-		String query = "UPDATE Persona SET nome = ?, cognome = ?, indirizzo = ?, telefono = ?, eta = ? WHERE id = ?";
+		String query = "UPDATE persona SET nome = ?, cognome = ?, indirizzo = ?, telefono = ?, eta = ? WHERE id = ?";
 		try {
 	        PreparedStatement preparedStatement = conn.prepareStatement(query);
 	        if (nome == null) preparedStatement.setNull(1, Types.VARCHAR); else preparedStatement.setString(1, nome);
@@ -77,7 +77,7 @@ public class Database {
 	    	
 		Connection conn = DatabaseConnection.getInstance().getConnection();
 			
-		String query = "DELETE FROM Persona WHERE id = ?";
+		String query = "DELETE FROM persona WHERE id = ?";
 		try {
 	        PreparedStatement preparedStatement = conn.prepareStatement(query);
 	        preparedStatement.setInt(1, id);
@@ -85,6 +85,28 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static boolean checkCredentials(String username, String password) {
+		
+		Connection conn = DatabaseConnection.getInstance().getConnection();
+		
+		String query = "SELECT * FROM utente WHERE username = ?";
+		try {
+	        PreparedStatement preparedStatement = conn.prepareStatement(query);
+	        preparedStatement.setString(1, password);	        
+	        ResultSet result = preparedStatement.executeQuery();
+	        if (result.next()) {
+	        	System.out.println(result.getString("password") == password);
+	            return result.getString("password").equals(password);
+	        }
+	        
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		
+		return false;
 	}
 
 }

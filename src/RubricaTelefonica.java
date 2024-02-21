@@ -10,13 +10,16 @@ public class RubricaTelefonica extends JFrame {
 	
 	private static ArrayList<Persona> rubrica = new ArrayList<>();
 	private static DefaultTableModel tableModel;
+	
+	private String user;
 
-    public RubricaTelefonica() {
+    public RubricaTelefonica(String username) {
     	
     	// Create window
-        setTitle("Rubrica Telefonica");
+        setTitle("Rubrica Telefonica - Ciao " + username);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
+        setLocationRelativeTo(null);
 
         // Create table
         String[] columns = {"Nome", "Cognome", "Telefono"};
@@ -41,13 +44,14 @@ public class RubricaTelefonica extends JFrame {
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         
         // Fetch from DB
+        this.user = username;
     	rubrica = Database.fetchPersoneFromDB();
     	Utils.reloadTable(tableModel, rubrica);
                      
         // Button listeners
         newPersona.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                EditorPersona editor = new EditorPersona(null, rubrica, tableModel);
+                EditorPersona editor = new EditorPersona(null, rubrica, tableModel, user);
                 editor.setVisible(true);
             }
         });
@@ -59,7 +63,7 @@ public class RubricaTelefonica extends JFrame {
                     JOptionPane.showMessageDialog(RubricaTelefonica.this, "É necessario selezionare una persona da modificare.");
                 } else {
                     Persona persona = rubrica.get(selectedRow);
-                    EditorPersona editor = new EditorPersona(persona, rubrica, tableModel);
+                    EditorPersona editor = new EditorPersona(persona, rubrica, tableModel, user);
                     editor.setVisible(true);
                 }
             }
@@ -82,14 +86,6 @@ public class RubricaTelefonica extends JFrame {
         });                
         
     } 
-	
-	public static void main(String[] args) {
-	    SwingUtilities.invokeLater(new Runnable() {
-	        public void run() {
-	            new RubricaTelefonica().setVisible(true);
-	        }
-	    });
-	}
 	
 	public static void reloadList() {
 		// Fetch from DB
