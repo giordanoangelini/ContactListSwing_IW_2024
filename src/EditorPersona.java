@@ -14,7 +14,7 @@ class EditorPersona extends JFrame {
     private JSpinner etaField;
 
     public EditorPersona(Persona persona, ArrayList<Persona> rubrica, DefaultTableModel tableModel, String user) {
-	    setTitle("Editor Persona");
+	    setTitle("Editor");
 	    setSize(300, 200);
 	    setLocationRelativeTo(null);
 	

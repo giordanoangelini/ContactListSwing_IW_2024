@@ -11,7 +11,7 @@ public class LoginRubrica extends JFrame {
     private JButton loginButton;
 
     public LoginRubrica() {
-
+    	setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 150);
         setLocationRelativeTo(null);
@@ -42,7 +42,7 @@ public class LoginRubrica extends JFrame {
                
 
         if (Database.checkCredentials(username, new String(password))) {
-            JOptionPane.showMessageDialog(this, "Login effettuato!");  
+            JOptionPane.showMessageDialog(this, "Login effettuato!", "Successo", JOptionPane.INFORMATION_MESSAGE);  
             dispose();
             new RubricaTelefonica(username).setVisible(true);
             
