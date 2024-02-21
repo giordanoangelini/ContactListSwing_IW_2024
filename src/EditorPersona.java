@@ -64,13 +64,13 @@ class EditorPersona extends JFrame {
 	            Integer eta = (Integer) etaField.getValue();
 	           
             	if (persona == null) {
-            		Database.addPersonaDB(nome, cognome, indirizzo, telefono, eta);             
+            		Database.addPersonaDB(nome, cognome, indirizzo, telefono, eta, user);             
             	}
 	            else {
 	            	Database.editPersonaDB(persona.getId(), nome, cognome, indirizzo, telefono, eta);
 	            }
 	            
-	            RubricaTelefonica.reloadList();
+	            RubricaTelefonica.reloadList(user);
 		        dispose();
 
 	        }

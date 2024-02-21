@@ -45,7 +45,7 @@ public class RubricaTelefonica extends JFrame {
         
         // Fetch from DB
         this.user = username;
-    	rubrica = Database.fetchPersoneFromDB();
+    	rubrica = Database.fetchPersoneFromDB(username);
     	Utils.reloadTable(tableModel, rubrica);
                      
         // Button listeners
@@ -79,7 +79,7 @@ public class RubricaTelefonica extends JFrame {
                     int choice = JOptionPane.showConfirmDialog(RubricaTelefonica.this, "Eliminare dalla rubrica " + persona.getNome() + " " + persona.getCognome() + "?", "Elimina", JOptionPane.YES_NO_OPTION);
                     if (choice == JOptionPane.YES_OPTION) {
                     	Database.deletePersonaDB(persona.getId());
-                        reloadList();
+                        reloadList(user);
                     }
                 }
             }
@@ -87,9 +87,9 @@ public class RubricaTelefonica extends JFrame {
         
     } 
 	
-	public static void reloadList() {
+	public static void reloadList(String username) {
 		// Fetch from DB
-    	rubrica = Database.fetchPersoneFromDB();
+    	rubrica = Database.fetchPersoneFromDB(username);
     	Utils.reloadTable(tableModel, rubrica);
 	}
 }

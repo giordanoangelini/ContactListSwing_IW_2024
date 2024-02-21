@@ -31,12 +31,12 @@ public class LoginRubrica extends JFrame {
 
         loginButton.addActionListener(new ActionListener() {            
             public void actionPerformed(ActionEvent e) {
-                doLogin();
+                login();
             }
         });
     }
 
-	private void doLogin() {
+	private void login() {
         String username = usernameField.getText();
         char[] password = passwordField.getPassword();
                
